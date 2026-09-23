@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>麻雀卓</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="mahjong-table" aria-label="麻雀卓">
+      <div class="felt-texture"></div>
+
+      <section class="wall wall-top" aria-label="対面の山"></section>
+      <span class="seat seat-top">南</span>
+      <section class="wall wall-left" aria-label="左家の山"></section>
+      <span class="seat seat-left">西</span>
+      <section class="wall wall-right" aria-label="右家の山"></section>
+      <span class="seat seat-right">東</span>
+
+      <section class="table-center" aria-label="卓中央">
+        <div class="opponent-discard opponent-top"></div>
+        <div class="opponent-discard opponent-left"></div>
+        <div class="opponent-discard opponent-right"></div>
+        <div class="center-info">
+          <p>南四局</p>
+          <p>残 <strong class="remaining-count">70</strong></p>
+        </div>
+        <section class="dead-wall" aria-label="王牌">
+          <div class="dead-wall-tiles"></div>
+        </section>
+        <div class="discard-row player-discard"></div>
+      </section>
+
+      <span class="seat seat-bottom">北</span>
+      <section class="hand player-hand" aria-label="自分の手牌"></section>
+      <section class="drawn-tile-area" aria-label="自摸牌"></section>
+      <div class="turn-actions">
+        <button class="claim-button" type="button" aria-label="ロンまたはツモを宣言する">ロン？</button>
+        <button class="turn-button" type="button" aria-label="手番をスキップして進む">スキップ</button>
+      </div>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
