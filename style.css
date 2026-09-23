@@ -64,16 +64,16 @@ body {
 .wall-left .tile, .wall-right .tile { width: var(--tile-height); height: var(--tile-width); margin-right: 0; margin-bottom: 0; }
 
 .seat { position: absolute; font-weight: 800; font-size: clamp(14px, 2vw, 23px); text-shadow: 1px 2px #194b56; }
-.seat-top { top: 12%; left: 72%; transform: none; }
-.seat-left { top: 18%; left: 18%; }
-.seat-right { bottom: 20%; right: 18%; }
-.seat-bottom { bottom: 16%; left: 24%; }
+.seat-top { top: 12%; left: 74%; transform: none; }
+.seat-left { top: 17%; left: 15%; }
+.seat-right { bottom: 30%; right: 15%; }
+.seat-bottom { bottom: 9%; left: 26%; }
 
 .table-center { position: absolute; inset: 14% 18%; }
 .opponent-discard { left: 50%; transform: translateX(-50%); }
-.opponent-top { top: 2.5%; }
-.opponent-left { left: 6%; top: 30%; transform: none; }
-.opponent-right { right: 3%; top: 30%; left: auto; transform: none; }
+.opponent-top { top: 6%; }
+.opponent-left { left: 8%; top: 30%; transform: none; }
+.opponent-right { right: 6%; top: 30%; left: auto; transform: none; }
 .opponent-discard .tile, .player-discard .tile { width: var(--tile-width); height: var(--tile-height); }
 .opponent-top, .player-discard { display: grid; grid-template-columns: repeat(6, var(--tile-width)); grid-template-rows: repeat(3, var(--tile-height)); }
 .opponent-left, .opponent-right { display: grid; grid-template-columns: repeat(3, var(--tile-height)); grid-template-rows: repeat(6, var(--tile-width)); }
@@ -85,15 +85,15 @@ body {
 }
 .opponent-right .tile { transform: rotate(270deg); }
 
-.center-info { position: absolute; top: 62%; left: 50%; transform: translate(-50%, -50%); width: min(42%, 216px); display: flex; justify-content: space-between; font-size: clamp(12px, 1.9vw, 22px); font-weight: 800; text-shadow: 2px 2px #174953; white-space: nowrap; }
+.center-info { position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: min(42%, 160px); display: flex; justify-content: space-between; font-size: clamp(12px, 2.2vw, 22px); font-weight: 800; text-shadow: 2px 2px #174953; white-space: nowrap; }
 .center-info p { margin: 0; }
 .center-info strong { font-size: 1.15em; }
 
-.player-discard { left: 50%; bottom: 10%; transform: translateX(-50%); }
+.player-discard { left: 50%; bottom: 8%; transform: translateX(-50%); }
 .player-hand { bottom: 2%; left: 50%; transform: translateX(-50%); }
 .player-hand .tile:last-child { margin-left: 0; }
 .drawn-tile-area { position: absolute; bottom: 2%; left: 77%; display: flex; min-width: var(--tile-width); min-height: var(--tile-height); }
-.turn-actions { position: absolute; left: 50%; bottom: 14%; width: 0; height: clamp(36px, 4vw, 46px); }
+.turn-actions { position: absolute; left: 50%; bottom: 10%; width: 0; height: clamp(36px, 4vw, 46px); }
 .turn-button, .claim-button { min-width: clamp(72px, 8vw, 92px); min-height: clamp(36px, 4vw, 46px); padding: 4px 10px; border: 2px solid #e8e2c9; border-radius: 24px; color: #143c47; font-size: clamp(12px, 1.5vw, 17px); font-weight: 800; line-height: 1; white-space: nowrap; cursor: pointer; background: linear-gradient(#fffef3, #d4caa9); box-shadow: 0 3px 5px rgb(0 0 0 / .35); }
 .claim-button { position: absolute; left: 0; transform: translateX(-50%); }
 .turn-button { position: absolute; left: 54px; }
