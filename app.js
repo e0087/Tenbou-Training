@@ -13,25 +13,11 @@ const fill = (selector, codes) => {
   target.replaceChildren(...codes.map((code) => tile(code)));
 };
 
-// ドラ表示牌をランダムに生成。
-const chars = 'mpsz'; // m:萬子、p:筒子、s:索子、z:字牌
-// mpszのうちランダムに1文字を生成。
-const randomChar = chars.charAt(Math.floor(Math.random() * chars.length));
-// 1から9までのランダムな整数を生成
-const min = 1;
-let max = 9;
-// 字牌が生成されている場合は最大値を7にする。
-if (randomChar === 'z') {
-  max = 7;
-}
-const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-const deadWallOpenTile1 = randomNumber + randomChar
-
-// 王牌、他家の手牌（すべて裏）生成。 
-fill(".wall-top", Array(13).fill("b"));
-fill(".wall-left", Array(13).fill("b"));
-fill(".wall-right", Array(13).fill("b"));
-fill(".dead-wall-tiles", ["b", "b", "b", "b", deadWallOpenTile1]);
+// 全牌のデータを生成。
+const allTiles = [
+  ...['m', 'p', 's'].flatMap(suit => [...Array(9)].flatMap((_, i) => i === 4 ? [`5${suit}`, `5${suit}`, `5${suit}`, `5r${suit}`] : Array(4).fill(`${i + 1}${suit}`))),
+  ...[...Array(7)].flatMap((_, i) => Array(4).fill(`${i + 1}z`))
+];
 
 // プレイヤーの手牌生成。
 const playerHand = ["7m", "7m", "2p", "3p", "4p", "1s", "2s", "4s", "5s", "6s", "7s", "8s", "9s"];
@@ -41,8 +27,32 @@ const hands = {
   west: Array(13).fill("b"),
   north: playerHand,
 };
+// 手牌で使用している牌を全牌データから削除
+playerHand.forEach(tile => {
+  const index = allTiles.indexOf(tile);
+  if (index !== -1) {
+    allTiles.splice(index, 1); // 見つかった位置の1枚だけを削除
+  }
+});
+
+// ドラ表示牌を全牌データからランダムに1枚抽出。
+const deadWallOpenTile1 = allTiles.splice(Math.floor(Math.random() * allTiles.length), 1)[0];
+
+// 王牌、他家の手牌（すべて裏）生成。 
+fill(".wall-top", Array(13).fill("b"));
+fill(".wall-left", Array(13).fill("b"));
+fill(".wall-right", Array(13).fill("b"));
+fill(".dead-wall-tiles", ["b", "b", "b", "b", deadWallOpenTile1]);
+
+// 自摸牌生成。
+const drawSequence = allTiles
+.map(tile => ({ tile, value: Math.random() })) // 各牌にランダムな数値を付与
+.sort((a, b) => a.value - b.value) // その数値でソート
+.map(({ tile }) => tile); // 牌の文字列だけに戻す
+
+console.log(drawSequence);
+
 const discards = { east: [], south: [], west: [], north: [] };
-const drawSequence = ["5rm", "6p", "3s", "1m", "7p", "9s", "2m", "5p"];
 const discardTargets = {
   east: ".opponent-right",
   south: ".opponent-top",
