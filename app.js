@@ -19,8 +19,10 @@ const allTiles = [
   ...[...Array(7)].flatMap((_, i) => Array(4).fill(`${i + 1}z`))
 ];
 
-// プレイヤーの手牌生成。
+// プレイヤーの手牌を設定。
 const playerHand = ["7m", "7m", "2p", "3p", "4p", "1s", "2s", "4s", "5s", "6s", "7s", "8s", "9s"];
+// アガリ牌情報を設定。
+const playerWinningTiles = ["3s"];
 const hands = {
   east: Array(13).fill("b"),
   south: Array(13).fill("b"),
@@ -49,8 +51,6 @@ const drawSequence = allTiles
 .map(tile => ({ tile, value: Math.random() })) // 各牌にランダムな数値を付与
 .sort((a, b) => a.value - b.value) // その数値でソート
 .map(({ tile }) => tile); // 牌の文字列だけに戻す
-
-console.log(drawSequence);
 
 const discards = { east: [], south: [], west: [], north: [] };
 const discardTargets = {
