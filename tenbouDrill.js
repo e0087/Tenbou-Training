@@ -18,7 +18,7 @@ const categories = [
             winningTiles: ["2s", "5s", "5rs", "7z"],
             winningTsumoHan: [3, 3, 4, 4],
             winningTsumoFu: [40, 40, 40, 40],
-            winningRonHan: [2, 2, 3, 3, 1],
+            winningRonHan: [2, 2, 3, 1],
             winningRonFu: [50, 50, 50, 50],
         }
     }
