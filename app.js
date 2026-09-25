@@ -19,10 +19,18 @@ const allTiles = [
   ...[...Array(7)].flatMap((_, i) => Array(4).fill(`${i + 1}z`))
 ];
 
-// プレイヤーの手牌を設定。
-const playerHand = ["7m", "7m", "2p", "3p", "4p", "1s", "2s", "4s", "5s", "6s", "7s", "8s", "9s"];
-// アガリ牌情報を設定。
-const playerWinningTiles = ["3s"];
+// drillからランダムに牌姿を選択
+const randomCategory =
+  window.tenbouCategories[
+    Math.floor(Math.random() * window.tenbouCategories.length)
+  ];
+
+// 問題集の読み込み
+const randomPattern = randomCategory.variants;
+// プレイヤーの手牌
+const playerHand = randomPattern.hand;
+// アガリ牌
+const playerWinningTiles = randomPattern.winningTiles;
 const hands = {
   east: Array(13).fill("b"),
   south: Array(13).fill("b"),
