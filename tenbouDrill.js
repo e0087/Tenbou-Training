@@ -22,4 +22,6 @@ const categories = [
             winningRonFu: [50, 50, 50, 50],
         }
     }
-]
+];
+
+window.tenbouCategories = categories;
