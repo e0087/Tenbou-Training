@@ -71,6 +71,7 @@ const discardTargets = {
 let drawIndex = 0;
 let phase = 0;
 let drawnTile = null;
+let lastDiscardedTile = null;
 let remaining = 70;
 const turnButton = document.querySelector(".turn-button");
 const claimButton = document.querySelector(".claim-button");
@@ -110,14 +111,47 @@ const render = () => {
   claimButton.setAttribute("aria-label", drawnTile ? "ツモを宣言する" : "ロンを宣言する");
 };
 
+claimButton.addEventListener("click", () => {
+  const isTsumo = drawnTile !== null;
+  const targetTile = isTsumo ? drawnTile : lastDiscardedTile;
+
+  // アガリ牌かどうか判定
+  const winningIndex = playerWinningTiles.indexOf(targetTile);
+
+  if (winningIndex !== -1) {
+    // 正解
+    const han = isTsumo
+      ? randomPattern.winningTsumoHan[winningIndex]
+      : randomPattern.winningRonHan[winningIndex];
+
+    const fu = isTsumo
+      ? randomPattern.winningTsumoFu[winningIndex]
+      : randomPattern.winningRonFu[winningIndex];
+
+    showResultDialog(
+      isTsumo ? "ツモ" : "ロン",
+      targetTile,
+      han,
+      fu
+    );
+
+  } else {
+    // チョンボ
+    showChonboDialog(playerWinningTiles);
+  }
+});
+
 turnButton.addEventListener("click", () => {
   // 東→南→西は摸打、北は自摸表示後に次の押下で打牌する。
   if (phase === 0) {
-    discards.east.push(nextDraw());
+    lastDiscardedTile = nextDraw();
+    discards.east.push(lastDiscardedTile);
   } else if (phase === 1) {
-    discards.south.push(nextDraw());
+    lastDiscardedTile = nextDraw();
+    discards.south.push(lastDiscardedTile);
   } else if (phase === 2) {
-    discards.west.push(nextDraw());
+    lastDiscardedTile = nextDraw();
+    discards.west.push(lastDiscardedTile);
   } else if (phase === 3) {
     drawnTile = nextDraw();
   } else {
@@ -129,5 +163,20 @@ turnButton.addEventListener("click", () => {
   phase = (phase + 1) % 5;
   render();
 });
+
+const showResultDialog = (type, winningTile, han, fu) => {
+  alert(
+    `${type}\n\n` +
+    `アガリ牌：${winningTile}\n` +
+    `${han}翻 ${fu}符`
+  );
+};
+
+const showChonboDialog = (winningTiles) => {
+  alert(
+    `チョンボ\n\n` +
+    `アガリ牌：${winningTiles.join("、")}`
+  );
+};
 
 render();
